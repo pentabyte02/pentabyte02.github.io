@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="es" class="dark-medium-contrast">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Cámara - Sweep</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#1c1b1f" />
+    <link rel="manifest" href="site.webmanifest" />
+
+    <!-- MATERIAL SYMBOLS -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+      rel="stylesheet"
+    />
+
+    <!-- ESTILOS BASE -->
+    <link rel="stylesheet" href="css/styles.css" />
+
+    <!-- PALETA -->
+    <link rel="stylesheet" href="css/light-mc.css" />
+    <link rel="stylesheet" href="css/dark-mc.css" />
+  </head>
+
+  <body>
+    <header class="app-bar">
+      <h1>Cámara Directa</h1>
+    </header>
+
+    <main class="page-content">
+
+      <section>
+        <div class="botones">
+          <button id="btnInicia" class="btn primary" onclick="inicia()">
+            <span class="material-symbols-outlined">videocam</span>
+            Iniciar cámara
+          </button>
+
+          <button id="btnParar" class="btn error" onclick="para()" disabled>
+            <span class="material-symbols-outlined">stop</span>
+            Parar
+          </button>
+
+          <button id="btnGraba" class="btn outline" onclick="graba()" disabled>
+            <span class="material-symbols-outlined">fiber_manual_record</span>
+            Grabar
+          </button>
+
+          <button
+            id="btnCaptura"
+            class="btn outline"
+            onclick="captura()"
+            disabled
+          >
+            <span class="material-symbols-outlined">photo_camera</span>
+            Capturar
+          </button>
+        </div>
+      </section>
+
+      <section>
+        <h3>Preview</h3>
+        <video id="preview" autoplay muted playsinline></video>
+      </section>
+
+      <section>
+        <h3>Grabación</h3>
+        <video id="recording" controls></video>
+        <p><a id="descarga" class="link">Descargar Video</a></p>
+      </section>
+
+      <section>
+        <h3>Imagen</h3>
+        <canvas id="canvas"></canvas>
+        <p><a id="descargaImagen" class="link">Descargar Imagen</a></p>
+      </section>
+
+      <section id="mensajes"></section>
+
+    </main>
+
+    <!-- BOTTOM NAV -->
+    <nav class="bottom-nav">
+      <a href="index.html" class="nav-item">
+        <span class="material-symbols-outlined">home</span>
+        <span>Inicio</span>
+      </a>
+
+      <a href="geolocalizacion.html" class="nav-item">
+        <span class="material-symbols-outlined">location_on</span>
+        <span>Geo</span>
+      </a>
+
+      <a href="camara.html" class="nav-item active">
+        <span class="material-symbols-outlined">photo_camera</span>
+        <span>Cámara</span>
+      </a>
+
+      <a href="archivos.html" class="nav-item">
+        <span class="material-symbols-outlined">folder</span>
+        <span>Archivos</span>
+      </a>
+
+      <a href="copyright.html" class="nav-item">
+        <span class="material-symbols-outlined">info</span>
+        <span>Info</span>
+      </a>
+    </nav>
+
+    <script>
+      // ===== LÓGICA CÁMARA =====
+      let stream = null;
+      const TIEMPO_DE_GRABACION = 5000;
+
+      const preview = document.getElementById("preview");
+      const recording = document.getElementById("recording");
+      const descarga = document.getElementById("descarga");
+      const descargaImagen = document.getElementById("descargaImagen");
+      const mensajes = document.getElementById("mensajes");
+      const canvas = document.getElementById("canvas");
+      const context = canvas.getContext("2d");
+
+      const btnInicia = document.getElementById("btnInicia");
+      const btnParar = document.getElementById("btnParar");
+      const btnGraba = document.getElementById("btnGraba");
+      const btnCaptura = document.getElementById("btnCaptura");
+
+      async function inicia() {
+        try {
+          stream = await navigator.mediaDevices.getUserMedia({
+            video: true,
+            audio: true,
+          });
+
+          preview.srcObject = stream;
+          await new Promise((resolve) => (preview.onplaying = resolve));
+
+          btnParar.disabled = false;
+          btnGraba.disabled = false;
+          btnCaptura.disabled = false;
+          btnInicia.disabled = true;
+
+          log("Cámara iniciada.");
+        } catch (e) {
+          log(e.message);
+        }
+      }
+
+      async function graba() {
+        try {
+          const recordedChunks = await grabaClip(stream, TIEMPO_DE_GRABACION);
+          let recordedBlob = new Blob(recordedChunks, { type: "video/webm" });
+
+          recording.src = URL.createObjectURL(recordedBlob);
+          descarga.href = recording.src;
+          descarga.download = "video.webm";
+
+          log("Video grabado correctamente.");
+        } catch (e) {
+          log(e.message);
+        }
+      }
+
+      function para() {
+        if (stream) {
+          stream.getTracks().forEach((track) => track.stop());
+          stream = null;
+        }
+
+        btnParar.disabled = true;
+        btnGraba.disabled = true;
+        btnCaptura.disabled = true;
+        btnInicia.disabled = false;
+
+        log("Cámara detenida.");
+      }
+
+      function captura() {
+        const width = preview.videoWidth;
+        const height = preview.videoHeight;
+
+        canvas.width = width;
+        canvas.height = height;
+
+        context.drawImage(preview, 0, 0, width, height);
+
+        descargaImagen.href = canvas.toDataURL("image/jpeg");
+        descargaImagen.download = "imagen.jpg";
+
+        log("Imagen capturada.");
+      }
+
+      function grabaClip(stream, milisegundos) {
+        let recorder = new MediaRecorder(stream);
+        let data = [];
+
+        recorder.ondataavailable = (event) => data.push(event.data);
+        recorder.start();
+
+        let detenido = new Promise((resolve, reject) => {
+          recorder.onstop = resolve;
+          recorder.onerror = (event) => reject(event.name);
+        });
+
+        let grabado = new Promise((resolve) =>
+          setTimeout(() => {
+            if (recorder.state === "recording") recorder.stop();
+            resolve();
+          }, milisegundos)
+        );
+
+        return Promise.all([detenido, grabado]).then(() => data);
+      }
+
+      function log(msg) {
+        mensajes.innerHTML += msg + "<br>";
+      }
+
+      // ===== TRANSICIÓN DE PÁGINA =====
+      window.addEventListener("DOMContentLoaded", () => {
+        const content = document.querySelector(".page-content");
+        content.classList.add("page-enter");
+      });
+
+      document.querySelectorAll(".bottom-nav a").forEach((link) => {
+        link.addEventListener("click", function (e) {
+          if (this.href !== window.location.href) {
+            e.preventDefault();
+
+            const destino = this.href;
+            const content = document.querySelector(".page-content");
+
+            content.classList.remove("page-enter");
+            content.classList.add("page-exit");
+
+            setTimeout(() => {
+              window.location.href = destino;
+            }, 280);
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

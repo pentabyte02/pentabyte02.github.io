@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="es" class="dark-medium-contrast">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Copyright - Sweep</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#1c1b1f" />
+
+    <link rel="icon" sizes="32x32" href="favicon.ico" />
+    <link rel="manifest" href="site.webmanifest" />
+
+    <!-- MATERIAL SYMBOLS -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+      rel="stylesheet"
+    />
+
+    <!-- ESTILOS BASE -->
+    <link rel="stylesheet" href="css/styles.css" />
+
+    <!-- PALETA -->
+    <link rel="stylesheet" href="css/light-mc.css" />
+    <link rel="stylesheet" href="css/dark-mc.css" />
+  </head>
+
+  <body>
+    <header class="app-bar">
+      <h1>Información</h1>
+    </header>
+
+    <main class="page-content">
+      <section>
+        <h3>© 2026 PentaByte</h3>
+
+        <ul class="credits">
+          <li>ENRIQUEZ ASCENCIO EMILIANO</li>
+          <li>MORENO CRUZ IRVIN ALBERTO</li>
+          <li>PEREZ ROJAS LUIS EDUARDO</li>
+          <li>SANCHEZ RODRIGUEZ JESUS</li>
+          <li>TORRES PEREZ SAUL YAIR</li>
+        </ul>
+      </section>
+    </main>
+
+    <!-- BOTTOM NAV -->
+    <nav class="bottom-nav">
+      <a href="index.html" class="nav-item">
+        <span class="material-symbols-outlined">home</span>
+        <span>Inicio</span>
+      </a>
+
+      <a href="geolocalizacion.html" class="nav-item">
+        <span class="material-symbols-outlined">location_on</span>
+        <span>Geo</span>
+      </a>
+
+      <a href="camara.html" class="nav-item">
+        <span class="material-symbols-outlined">photo_camera</span>
+        <span>Cámara</span>
+      </a>
+
+      <a href="archivos.html" class="nav-item">
+        <span class="material-symbols-outlined">folder</span>
+        <span>Archivos</span>
+      </a>
+
+      <a href="copyright.html" class="nav-item active">
+        <span class="material-symbols-outlined">info</span>
+        <span>Info</span>
+      </a>
+    </nav>
+
+    <script>
+      // ===== TRANSICIÓN DE PÁGINA =====
+      window.addEventListener("DOMContentLoaded", () => {
+        const content = document.querySelector(".page-content");
+        content.classList.add("page-enter");
+      });
+
+      document.querySelectorAll(".bottom-nav a").forEach((link) => {
+        link.addEventListener("click", function (e) {
+          if (this.href !== window.location.href) {
+            e.preventDefault();
+
+            const destino = this.href;
+            const content = document.querySelector(".page-content");
+
+            content.classList.remove("page-enter");
+            content.classList.add("page-exit");
+
+            setTimeout(() => {
+              window.location.href = destino;
+            }, 280);
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

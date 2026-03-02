@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="es" class="dark-medium-contrast">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Inicio - Sweep</title>
+
+    <meta
+      name="description"
+      content="Sweep - PWA con geolocalización y acceso al dispositivo"
+    />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#1c1b1f" />
+
+    <!-- MATERIAL SYMBOLS -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+      rel="stylesheet"
+    />
+
+    <link rel="icon" sizes="32x32" href="favicon.ico" />
+    <link rel="manifest" href="site.webmanifest" />
+
+    <!-- ESTILOS BASE -->
+    <link rel="stylesheet" href="css/styles.css" />
+
+    <!-- PALETA MATERIAL -->
+    <link rel="stylesheet" href="css/light-mc.css" />
+    <link rel="stylesheet" href="css/dark-mc.css" />
+
+    <!-- TRANSICIONES -->
+    <link rel="stylesheet" href="css/transicion_pestanas.css" />
+  </head>
+
+      <!-- SERVICE WORKER -->
+  <script type="module">
+    import "./js/lib/registraServiceWorker.js";
+  </script>
+
+  <body>
+    <header class="app-bar">
+      <h1>Sweep</h1>
+    </header>
+
+    <main class="page-content">
+      <h2>Bienvenido</h2>
+
+      <p>Esta aplicación permite:</p>
+
+      <ul>
+        <li>Obtener geolocalización en tiempo real</li>
+        <li>Tomar fotos y videos desde el dispositivo</li>
+        <li>Usar la cámara directamente</li>
+        <li>Seleccionar archivos del dispositivo</li>
+      </ul>
+
+      <p>Navega usando las pestañas inferiores.</p>
+
+      <hr />
+    </main>
+
+    <nav class="bottom-nav">
+      <a href="index.html" class="nav-item active">
+        <span class="material-symbols-outlined">home</span>
+        <span>Inicio</span>
+      </a>
+
+      <a href="geolocalizacion.html" class="nav-item">
+        <span class="material-symbols-outlined">location_on</span>
+        <span>Geo</span>
+      </a>
+
+      <a href="camara.html" class="nav-item">
+        <span class="material-symbols-outlined">photo_camera</span>
+        <span>Cámara</span>
+      </a>
+
+      <a href="archivos.html" class="nav-item">
+        <span class="material-symbols-outlined">folder</span>
+        <span>Archivos</span>
+      </a>
+
+      <a href="copyright.html" class="nav-item">
+        <span class="material-symbols-outlined">info</span>
+        <span>Info</span>
+      </a>
+    </nav>
+
+    <script>
+      window.addEventListener("DOMContentLoaded", () => {
+        const content = document.querySelector(".page-content");
+        content.classList.add("page-enter");
+      });
+
+      document.querySelectorAll(".bottom-nav a").forEach((link) => {
+        link.addEventListener("click", function (e) {
+          if (this.href !== window.location.href) {
+            e.preventDefault();
+
+            const destino = this.href;
+            const content = document.querySelector(".page-content");
+
+            content.classList.remove("page-enter");
+            content.classList.add("page-exit");
+
+            setTimeout(() => {
+              window.location.href = destino;
+            }, 280);
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
