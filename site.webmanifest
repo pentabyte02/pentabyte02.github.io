@@ -45,7 +45,38 @@
    "type": "image/png",
    "form_factor": "wide",
    "label": "PWA con Material Design"
+  },
+    {
+   "src": "/img/screenshot_vertical_1.png",
+   "sizes": "377x667",
+   "type": "image/png",
+   "label": "PWA con Material Design"
+  },
+    {
+   "src": "/img/screenshot_vertical_2.png",
+   "sizes": "377x667",
+   "type": "image/png",
+   "label": "PWA con Material Design"
+  },
+    {
+   "src": "/img/screenshot_vertical_3.png",
+   "sizes": "377x667",
+   "type": "image/png",
+   "label": "PWA con Material Design"
+  },
+    {
+   "src": "/img/screenshot_vertical_4.png",
+   "sizes": "377x667",
+   "type": "image/png",
+   "label": "PWA con Material Design"
+  },
+    {
+   "src": "/img/screenshot_vertical_5.png",
+   "sizes": "377x667",
+   "type": "image/png",
+   "label": "PWA con Material Design"
   }
+
  ],
  "icons": [
 {

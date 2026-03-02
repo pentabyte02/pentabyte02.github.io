@@ -1,4 +1,4 @@
-const VERSION = "1.02";
+const VERSION = "1.01";
 
 const CACHE = "pwamd";
 
@@ -42,11 +42,17 @@ const ARCHIVOS = [
   "img/maskable_icon_x512.png",
   "img/maskable_icon_x72.png",
   "img/maskable_icon_x96.png",
-  "screenshot_horizontal_1.png",
-  "screenshot_horizontal_2.png",
-  "screenshot_horizontal_3.png",
-  "screenshot_horizontal_4.png",
-  "screenshot_horizontal_5.png",
+  "img/screenshot_horizontal_1.png",
+  "img/screenshot_horizontal_2.png",
+  "img/screenshot_horizontal_3.png",
+  "img/screenshot_horizontal_4.png",
+  "img/screenshot_horizontal_5.png",
+  "img/screenshot_vertical_1.png",
+  "img/screenshot_vertical_2.png",
+  "img/screenshot_vertical_3.png",
+  "img/screenshot_vertical_4.png",
+  "img/screenshot_vertical_5.png",
+
 
   // JS
   "js/nav-tab-fixed.js",
