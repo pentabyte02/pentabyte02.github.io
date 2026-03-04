@@ -1,114 +1,129 @@
 <!doctype html>
-<html lang="es" class="dark-medium-contrast">
+<html lang="es" class="light dark">
   <head>
     <meta charset="UTF-8" />
     <title>Cámara - Sweep</title>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#1c1b1f" />
-    <link rel="manifest" href="site.webmanifest" />
-
-    <!-- MATERIAL SYMBOLS -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
-      rel="stylesheet"
+    <!-- SEO básico -->
+    <meta
+      name="description"
+      content="Sweep - PWA con acceso a cámara y grabación de video"
     />
 
-    <!-- ESTILOS BASE -->
-    <link rel="stylesheet" href="css/styles.css" />
+    <!-- Responsive -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- PALETA -->
-    <link rel="stylesheet" href="css/light-mc.css" />
-    <link rel="stylesheet" href="css/dark-mc.css" />
+    <!-- Color de la barra del sistema -->
+    <meta name="theme-color" content="#1c1b1f" />
+
+    <!-- PWA -->
+    <link rel="manifest" href="site.webmanifest" />
+    <link rel="icon" sizes="32x32" href="favicon.ico" />
+
+    <!-- MATERIAL SYMBOLS -->
+    <link rel="stylesheet" href="css/material-symbols-outlined.css" />
+
+    <!-- TEMAS -->
+    <link rel="stylesheet" href="css/theme/light.css" />
+    <link rel="stylesheet" href="css/theme/dark.css" />
+
+    <!-- ESTILOS BASE -->
+    <link rel="stylesheet" href="css/estilos.css" />
+
+    <!-- COMPONENTES MATERIAL -->
+    <link rel="stylesheet" href="css/md-tab.css" />
+    <link rel="stylesheet" href="css/md-filled-text-field.css" />
+    <link rel="stylesheet" href="css/md-filled-button.css" />
+    <link rel="stylesheet" href="css/md-outline-button.css" />
+    <link rel="stylesheet" href="css/md-headline.css" />
+    <link rel="stylesheet" href="css/md-list.css" />
+
+    <!-- TRANSICIONES -->
+    <link rel="stylesheet" href="css/transicion_pestanas.css" />
+
+    <!-- WEB COMPONENTS -->
+    <script type="module" src="js/lib/custom/md-app-bar.js"></script>
+    <script type="module" src="js/nav-tab-fixed.js"></script>
   </head>
 
   <body>
-    <header class="app-bar">
-      <h1>Cámara Directa</h1>
-    </header>
+    <form id="formulario" novalidate>
+      <md-app-bar class="centered" adicional="tab">
+        <h1>Cámara Directa</h1>
+      </md-app-bar>
 
-    <main class="page-content">
+      <nav-tab-fixed id="tab"></nav-tab-fixed>
 
-      <section>
-        <div class="botones">
-          <button id="btnInicia" class="btn primary" onclick="inicia()">
-            <span class="material-symbols-outlined">videocam</span>
-            Iniciar cámara
-          </button>
+      <section class="page-content">
+        <section>
+          <div class="botones">
+            <button
+              type="button"
+              id="btnInicia"
+              class="md-filled-button"
+              onclick="inicia()"
+            >
+              <span class="material-symbols-outlined">videocam</span>
+              Iniciar cámara
+            </button>
 
-          <button id="btnParar" class="btn error" onclick="para()" disabled>
-            <span class="material-symbols-outlined">stop</span>
-            Parar
-          </button>
+            <button
+              type="button"
+              id="btnParar"
+              class="md-outline-button"
+              onclick="para()"
+              disabled
+            >
+              <span class="material-symbols-outlined">stop</span>
+              Parar
+            </button>
 
-          <button id="btnGraba" class="btn outline" onclick="graba()" disabled>
-            <span class="material-symbols-outlined">fiber_manual_record</span>
-            Grabar
-          </button>
+            <button
+              type="button"
+              id="btnGraba"
+              class="md-outline-button"
+              onclick="graba()"
+              disabled
+            >
+              <span class="material-symbols-outlined">fiber_manual_record</span>
+              Grabar
+            </button>
 
-          <button
-            id="btnCaptura"
-            class="btn outline"
-            onclick="captura()"
-            disabled
-          >
-            <span class="material-symbols-outlined">photo_camera</span>
-            Capturar
-          </button>
-        </div>
+            <button
+              type="button"
+              id="btnCaptura"
+              class="md-outline-button"
+              onclick="captura()"
+              disabled
+            >
+              <span class="material-symbols-outlined">photo_camera</span>
+              Capturar
+            </button>
+          </div>
+        </section>
+
+        <section>
+          <h3>Preview</h3>
+          <video id="preview" autoplay muted playsinline></video>
+        </section>
+
+        <section>
+          <h3>Grabación</h3>
+          <video id="recording" controls></video>
+          <p><a id="descarga">Descargar Video</a></p>
+        </section>
+
+        <section>
+          <h3>Imagen</h3>
+          <canvas id="canvas"></canvas>
+          <p><a id="descargaImagen">Descargar Imagen</a></p>
+        </section>
+
+        <section id="mensajes"></section>
       </section>
-
-      <section>
-        <h3>Preview</h3>
-        <video id="preview" autoplay muted playsinline></video>
-      </section>
-
-      <section>
-        <h3>Grabación</h3>
-        <video id="recording" controls></video>
-        <p><a id="descarga" class="link">Descargar Video</a></p>
-      </section>
-
-      <section>
-        <h3>Imagen</h3>
-        <canvas id="canvas"></canvas>
-        <p><a id="descargaImagen" class="link">Descargar Imagen</a></p>
-      </section>
-
-      <section id="mensajes"></section>
-
-    </main>
-
-    <!-- BOTTOM NAV -->
-    <nav class="bottom-nav">
-      <a href="index.html" class="nav-item">
-        <span class="material-symbols-outlined">home</span>
-        <span>Inicio</span>
-      </a>
-
-      <a href="geolocalizacion.html" class="nav-item">
-        <span class="material-symbols-outlined">location_on</span>
-        <span>Geo</span>
-      </a>
-
-      <a href="camara.html" class="nav-item active">
-        <span class="material-symbols-outlined">photo_camera</span>
-        <span>Cámara</span>
-      </a>
-
-      <a href="archivos.html" class="nav-item">
-        <span class="material-symbols-outlined">folder</span>
-        <span>Archivos</span>
-      </a>
-
-      <a href="copyright.html" class="nav-item">
-        <span class="material-symbols-outlined">info</span>
-        <span>Info</span>
-      </a>
-    </nav>
+    </form>
 
     <script>
-      // ===== LÓGICA CÁMARA =====
       let stream = null;
       const TIEMPO_DE_GRABACION = 5000;
 
@@ -135,10 +150,20 @@
           preview.srcObject = stream;
           await new Promise((resolve) => (preview.onplaying = resolve));
 
+          document.body.classList.add("camara-activa");
+
+          // Estados funcionales
           btnParar.disabled = false;
           btnGraba.disabled = false;
           btnCaptura.disabled = false;
           btnInicia.disabled = true;
+
+          // Estados visuales (CLASES)
+          btnParar.classList.remove("md-outline-button");
+          btnParar.classList.add("md-filled-button");
+
+          btnInicia.classList.remove("md-filled-button");
+          btnInicia.classList.add("md-outline-button");
 
           log("Cámara iniciada.");
         } catch (e) {
@@ -167,10 +192,20 @@
           stream = null;
         }
 
+        document.body.classList.remove("camara-activa");
+
+        // Estados funcionales
         btnParar.disabled = true;
         btnGraba.disabled = true;
         btnCaptura.disabled = true;
         btnInicia.disabled = false;
+
+        // Restaurar clases visuales originales
+        btnParar.classList.remove("md-filled-button");
+        btnParar.classList.add("md-outline-button");
+
+        btnInicia.classList.remove("md-outline-button");
+        btnInicia.classList.add("md-filled-button");
 
         log("Cámara detenida.");
       }
@@ -206,7 +241,7 @@
           setTimeout(() => {
             if (recorder.state === "recording") recorder.stop();
             resolve();
-          }, milisegundos)
+          }, milisegundos),
         );
 
         return Promise.all([detenido, grabado]).then(() => data);
@@ -215,30 +250,6 @@
       function log(msg) {
         mensajes.innerHTML += msg + "<br>";
       }
-
-      // ===== TRANSICIÓN DE PÁGINA =====
-      window.addEventListener("DOMContentLoaded", () => {
-        const content = document.querySelector(".page-content");
-        content.classList.add("page-enter");
-      });
-
-      document.querySelectorAll(".bottom-nav a").forEach((link) => {
-        link.addEventListener("click", function (e) {
-          if (this.href !== window.location.href) {
-            e.preventDefault();
-
-            const destino = this.href;
-            const content = document.querySelector(".page-content");
-
-            content.classList.remove("page-enter");
-            content.classList.add("page-exit");
-
-            setTimeout(() => {
-              window.location.href = destino;
-            }, 280);
-          }
-        });
-      });
     </script>
   </body>
 </html>

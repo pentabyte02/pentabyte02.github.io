@@ -1,114 +1,144 @@
 <!doctype html>
-<html lang="es" class="dark-medium-contrast">
+<html lang="es" class="light dark">
   <head>
     <meta charset="UTF-8" />
-    <title>Inicio - Sweep</title>
+    <title>Ayuda - Sweep</title>
 
     <meta
       name="description"
       content="Sweep - PWA con geolocalización y acceso al dispositivo"
     />
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width" />
     <meta name="theme-color" content="#1c1b1f" />
-
-    <!-- MATERIAL SYMBOLS -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
-      rel="stylesheet"
-    />
 
     <link rel="icon" sizes="32x32" href="favicon.ico" />
     <link rel="manifest" href="site.webmanifest" />
 
-    <!-- ESTILOS BASE -->
-    <link rel="stylesheet" href="css/styles.css" />
+    <!-- MATERIAL SYMBOLS LOCAL -->
+    <link rel="stylesheet" href="css/material-symbols-outlined.css" />
 
-    <!-- PALETA MATERIAL -->
-    <link rel="stylesheet" href="css/light-mc.css" />
-    <link rel="stylesheet" href="css/dark-mc.css" />
+    <!-- TEMAS -->
+    <link rel="stylesheet" href="css/theme/light.css" />
+    <link rel="stylesheet" href="css/theme/dark.css" />
+
+    <!-- ESTILOS BASE -->
+    <link rel="stylesheet" href="css/estilos.css" />
+
+    <!-- COMPONENTES MATERIAL -->
+    <link rel="stylesheet" href="css/md-tab.css" />
+    <link rel="stylesheet" href="css/md-filled-text-field.css" />
+    <link rel="stylesheet" href="css/md-filled-button.css" />
+    <link rel="stylesheet" href="css/md-outline-button.css" />
+    <link rel="stylesheet" href="css/md-headline.css" />
+    <link rel="stylesheet" href="css/md-list.css" />
 
     <!-- TRANSICIONES -->
     <link rel="stylesheet" href="css/transicion_pestanas.css" />
+
+    <script type="module" src="js/lib/custom/md-app-bar.js"></script>
+    <script type="module" src="js/nav-tab-fixed.js"></script>
   </head>
 
-      <!-- SERVICE WORKER -->
-  <script type="module">
-    import "./js/lib/registraServiceWorker.js";
-  </script>
-
   <body>
-    <header class="app-bar">
-      <h1>Sweep</h1>
-    </header>
+    <form id="formulario" novalidate>
+      <md-app-bar class="centered" adicional="tab">
+        <h1>Ayuda</h1>
+      </md-app-bar>
 
-    <main class="page-content">
-      <h2>Bienvenido</h2>
+      <nav-tab-fixed id="tab"></nav-tab-fixed>
 
-      <p>Esta aplicación permite:</p>
+      <section>
+        <ul class="md-list">
+          <li class="md-two-line">
+            <span class="headline">Título</span>
+            <span class="supporting">PWA con Material Design</span>
+          </li>
 
-      <ul>
-        <li>Obtener geolocalización en tiempo real</li>
-        <li>Tomar fotos y videos desde el dispositivo</li>
-        <li>Usar la cámara directamente</li>
-        <li>Seleccionar archivos del dispositivo</li>
-      </ul>
+          <li class="md-two-line">
+            <span class="headline">Descripción</span>
+            <span class="supporting"> Ejemplos de vistas móviles. </span>
+          </li>
 
-      <p>Navega usando las pestañas inferiores.</p>
+          <li class="md-one-line">
+            <span class="headline">Autores</span>
+          </li>
 
-      <hr />
-    </main>
+          <li class="md-two-line">
+            <span class="headline">Emiliano Enriquez Ascencio</span>
+            <span class="supporting">251271003</span>
+          </li>
 
-    <nav class="bottom-nav">
-      <a href="index.html" class="nav-item active">
-        <span class="material-symbols-outlined">home</span>
-        <span>Inicio</span>
-      </a>
+          <li class="md-two-line">
+            <span class="headline">Irvin Alberto Moreno Cruz</span>
+            <span class="supporting">251271009</span>
+          </li>
 
-      <a href="geolocalizacion.html" class="nav-item">
-        <span class="material-symbols-outlined">location_on</span>
-        <span>Geo</span>
-      </a>
+          <li class="md-two-line">
+            <span class="headline">Luis Eduardo Perez Rojas</span>
+            <span class="supporting">251271032</span>
+          </li>
 
-      <a href="camara.html" class="nav-item">
-        <span class="material-symbols-outlined">photo_camera</span>
-        <span>Cámara</span>
-      </a>
+          <li class="md-two-line">
+            <span class="headline">Jesus Sanchez Rodriguez</span>
+            <span class="supporting">251271015</span>
+          </li>
 
-      <a href="archivos.html" class="nav-item">
-        <span class="material-symbols-outlined">folder</span>
-        <span>Archivos</span>
-      </a>
+          <li class="md-two-line">
+            <span class="headline">Saul Yair Torres Perez</span>
+            <span class="supporting">251271031</span>
+          </li>
 
-      <a href="copyright.html" class="nav-item">
-        <span class="material-symbols-outlined">info</span>
-        <span>Info</span>
-      </a>
-    </nav>
+          <li class="md-two-line">
+            <span class="headline">Derechos de autor</span>
+            <span class="supporting">© 2026 PentaByte</span>
+          </li>
 
+          <li class="md-three-line">
+            <span class="headline">
+              Este software usa la librería para PWA
+            </span>
+            <span class="supporting">
+              Esta obra de Gilberto Pacheco Gallegos está bajo una
+              <a
+                target="_blank"
+                rel="license noreferrer"
+                href="http://creativecommons.org/licenses/by/4.0/"
+              >
+                Licencia Creative Commons Atribución 4.0 Internacional
+              </a>
+            </span>
+          </li>
+
+          <li>
+            <a
+              class="md-three-line"
+              target="_blank"
+              rel="noreferrer"
+              href="https://fonts.google.com/icons"
+            >
+              <span class="headline">También usa Material Symbols</span>
+              <span class="supporting">
+                Desarrollada por Google bajo licencia Apache 2.0
+              </span>
+            </a>
+          </li>
+        </ul>
+      </section>
+    </form>
+
+    <!-- SERVICE WORKER -->
     <script>
-      window.addEventListener("DOMContentLoaded", () => {
-        const content = document.querySelector(".page-content");
-        content.classList.add("page-enter");
-      });
-
-      document.querySelectorAll(".bottom-nav a").forEach((link) => {
-        link.addEventListener("click", function (e) {
-          if (this.href !== window.location.href) {
-            e.preventDefault();
-
-            const destino = this.href;
-            const content = document.querySelector(".page-content");
-
-            content.classList.remove("page-enter");
-            content.classList.add("page-exit");
-
-            setTimeout(() => {
-              window.location.href = destino;
-            }, 280);
-          }
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker
+            .register("sw.js")
+            .then(() => console.log("Service Worker registrado"))
+            .catch((err) =>
+              console.error("Error registrando Service Worker:", err),
+            );
         });
-      });
+      }
     </script>
   </body>
 </html>

@@ -1,80 +1,36 @@
-/* Elementos que participan */
+@view-transition {
+ navigation: auto;
+}
+
 #headline {
-  view-transition-name: encabezado;
+ view-transition-name: encabezado;
 }
 
 main {
-  view-transition-name: contenido;
+ view-transition-name: contenido;
 }
 
-/* Duración global */
-::view-transition-group(encabezado),
+::view-transition-group(encabezado) {
+ animation-duration: var(--md-sys-motion-duration-1000);
+}
+
 ::view-transition-group(contenido) {
-  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+ animation-duration: var(--md-sys-motion-duration-1000);
 }
-
-/* ===== SALIDA ===== */
 
 html::view-transition-old(encabezado) {
-  animation: header-out 250ms forwards;
+ animation-name: salePorLaIzquierda;
+}
+
+html::view-transition-new(encabezado) {
+ animation-name: entraPorLaDerecha;
 }
 
 html::view-transition-old(contenido) {
-  animation: page-out 300ms forwards;
-}
-
-/* ===== ENTRADA ===== */
-
-html::view-transition-new(encabezado) {
-  animation: header-in 300ms forwards;
+ animation-name: salePorLaIzquierda;
 }
 
 html::view-transition-new(contenido) {
-  animation: page-in 350ms forwards;
-}
-
-/* ===== KEYFRAMES TIPO APP ===== */
-
-@keyframes header-out {
-  from {
-    opacity: 1;
-    transform: translateX(0);
-  }
-  to {
-    opacity: 0;
-    transform: translateX(-20px);
-  }
-}
-
-@keyframes header-in {
-  from {
-    opacity: 0;
-    transform: translateX(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes page-out {
-  from {
-    opacity: 1;
-    transform: translateX(0);
-  }
-  to {
-    opacity: 0;
-    transform: translateX(-40px);
-  }
-}
-
-@keyframes page-in {
-  from {
-    opacity: 0;
-    transform: translateX(40px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+ animation-duration: var(--md-sys-motion-duration-700);
+ animation-name: entraPorLaDerecha;
 }

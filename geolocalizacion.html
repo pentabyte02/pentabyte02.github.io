@@ -1,111 +1,80 @@
 <!doctype html>
-<html lang="es" class="dark-medium-contrast">
+<html lang="es" class="light dark">
   <head>
     <meta charset="UTF-8" />
     <title>Geolocalización - Sweep</title>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width" />
     <meta name="theme-color" content="#1c1b1f" />
     <link rel="manifest" href="site.webmanifest" />
+    <link rel="icon" sizes="32x32" href="favicon.ico" />
 
-    <!-- MATERIAL SYMBOLS -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
-      rel="stylesheet"
-    />
+    <!-- MATERIAL SYMBOLS LOCAL -->
+    <link rel="stylesheet" href="css/material-symbols-outlined.css" />
+
+    <!-- TEMAS -->
+    <link rel="stylesheet" href="css/theme/light.css" />
+    <link rel="stylesheet" href="css/theme/dark.css" />
 
     <!-- ESTILOS BASE -->
-    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/estilos.css" />
+    
+    <!-- COMPONENTES MATERIAL -->
+    <link rel="stylesheet" href="css/md-tab.css" />
+    <link rel="stylesheet" href="css/md-filled-text-field.css" />
+    <link rel="stylesheet" href="css/md-filled-button.css" />
+    <link rel="stylesheet" href="css/md-outline-button.css" />
 
-    <!-- PALETA -->
-    <link rel="stylesheet" href="css/light-mc.css" />
-    <link rel="stylesheet" href="css/dark-mc.css" />
+    <script type="module" src="js/lib/custom/md-app-bar.js"></script>
+    <script type="module" src="js/nav-tab-fixed.js"></script>
+
+    <!-- TRANSICIONES -->
+    <link rel="stylesheet" href="css/transicion_pestanas.css" />
   </head>
 
   <body>
-    <header class="app-bar">
-      <h1>Geolocalización</h1>
-    </header>
+    <form id="formulario" novalidate>
+      <!-- APP BAR -->
+      <md-app-bar class="centered" adicional="tab">
+        <h1>Geolocalización</h1>
+      </md-app-bar>
 
-    <main class="page-content">
-      <div class="data-card">
-        <span class="label">Latitud</span>
-        <output id="latitud">--</output>
-      </div>
+      <!-- NAV TAB FIXED -->
+      <nav-tab-fixed id="tab"></nav-tab-fixed>
 
-      <div class="data-card">
-        <span class="label">Longitud</span>
-        <output id="longitud">--</output>
-      </div>
-    </main>
+      <section class="page-content">
+        <p>
+          <label class="md-filled-text-field float">
+            <output id="latitud">--</output>
+            <span>Latitud</span>
+          </label>
+        </p>
 
-    <!-- BOTTOM NAV -->
-    <nav class="bottom-nav">
-      <a href="index.html" class="nav-item">
-        <span class="material-symbols-outlined">home</span>
-        <span>Inicio</span>
-      </a>
-
-      <a href="geolocalizacion.html" class="nav-item active">
-        <span class="material-symbols-outlined">location_on</span>
-        <span>Geo</span>
-      </a>
-
-      <a href="camara.html" class="nav-item">
-        <span class="material-symbols-outlined">photo_camera</span>
-        <span>Cámara</span>
-      </a>
-
-      <a href="archivos.html" class="nav-item">
-        <span class="material-symbols-outlined">folder</span>
-        <span>Archivos</span>
-      </a>
-
-      <a href="copyright.html" class="nav-item">
-        <span class="material-symbols-outlined">info</span>
-        <span>Info</span>
-      </a>
-    </nav>
+        <p>
+          <label class="md-filled-text-field float">
+            <output id="longitud">--</output>
+            <span>Longitud</span>
+          </label>
+        </p>
+      </section>
+    </form>
 
     <script>
       // ===== GEOLOCALIZACIÓN =====
       if ("geolocation" in navigator) {
         navigator.geolocation.watchPosition(
           (p) => {
-            document.getElementById("latitud").value = p.coords.latitude;
-            document.getElementById("longitud").value = p.coords.longitude;
+            document.getElementById("latitud").textContent = p.coords.latitude;
+            document.getElementById("longitud").textContent =
+              p.coords.longitude;
           },
           (error) => {
             alert("Error obteniendo ubicación: " + error.message);
-          }
+          },
         );
       } else {
         alert("Geolocalización no soportada.");
       }
-
-      // ===== TRANSICIÓN DE PÁGINA =====
-      window.addEventListener("DOMContentLoaded", () => {
-        const content = document.querySelector(".page-content");
-        content.classList.add("page-enter");
-      });
-
-      document.querySelectorAll(".bottom-nav a").forEach((link) => {
-        link.addEventListener("click", function (e) {
-          if (this.href !== window.location.href) {
-            e.preventDefault();
-
-            const destino = this.href;
-            const content = document.querySelector(".page-content");
-
-            content.classList.remove("page-enter");
-            content.classList.add("page-exit");
-
-            setTimeout(() => {
-              window.location.href = destino;
-            }, 280);
-          }
-        });
-      });
     </script>
   </body>
 </html>

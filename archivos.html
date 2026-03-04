@@ -1,113 +1,112 @@
 <!doctype html>
-<html lang="es" class="dark-medium-contrast">
+<html lang="es" class="light dark">
   <head>
     <meta charset="UTF-8" />
-    <title>Archivos - Sweep</title>
+    <title>Archivos y Cámara - Sweep</title>
+    <meta name="description" content="Sweep - Archivos y Cámara" />
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width" />
     <meta name="theme-color" content="#1c1b1f" />
+
+    <link rel="icon" sizes="32x32" href="favicon.ico" />
     <link rel="manifest" href="site.webmanifest" />
 
-    <!-- MATERIAL SYMBOLS -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
-      rel="stylesheet"
-    />
+    <!-- COMPONENTES -->
+    <script type="module" src="js/lib/custom/md-app-bar.js"></script>
+    <script type="module" src="js/nav-tab-fixed.js"></script>
 
-    <!-- ESTILOS BASE -->
-    <link rel="stylesheet" href="css/styles.css" />
-
-    <!-- PALETA -->
-    <link rel="stylesheet" href="css/light-mc.css" />
-    <link rel="stylesheet" href="css/dark-mc.css" />
+    <!-- ESTILOS -->
+    <link rel="stylesheet" href="css/material-symbols-outlined.css" />
+    <link rel="stylesheet" href="css/theme/light.css" />
+    <link rel="stylesheet" href="css/theme/dark.css" />
+    <link rel="stylesheet" href="css/estilos.css" />
+    <link rel="stylesheet" href="css/transicion_pestanas.css" />
+    <link rel="stylesheet" href="css/md-tab.css" />
+    <link rel="stylesheet" href="css/md-filled-text-field.css" />
+    <link rel="stylesheet" href="css/md-filled-button.css" />
+    <link rel="stylesheet" href="css/md-outline-button.css" />
   </head>
 
   <body>
-    <header class="app-bar">
-      <h1>Archivos y Cámara</h1>
-    </header>
+    <form id="formulario" novalidate>
+      <!-- APP BAR -->
+      <md-app-bar class="centered" adicional="tab">
+        <h1>Archivos y Cámara</h1>
+      </md-app-bar>
 
-    <main class="page-content">
+      <!-- NAV -->
+      <nav-tab-fixed id="tab"></nav-tab-fixed>
 
-      <section>
-        <h3>Tomar Foto</h3>
-        <input
-          type="file"
-          accept="image/*"
-          capture="camera"
-          class="file-input"
-        />
+      <section class="page-content">
+        <!-- RESPUESTA -->
+        <p>
+          <label class="md-filled-text-field float">
+            <output name="respuesta"
+              >No se ha seleccionado ningún archivo</output
+            >
+            <span>Estado</span>
+          </label>
+        </p>
+
+        <!-- TOMAR FOTO -->
+        <p>
+          <label class="md-filled-text-field float">
+            <input
+              type="file"
+              name="foto"
+              accept="image/*"
+              capture="environment"
+            />
+            <span>Tomar Foto</span>
+          </label>
+        </p>
+
+        <!-- GRABAR VIDEO -->
+        <p>
+          <label class="md-filled-text-field float">
+            <input type="file" name="video" accept="video/*" capture />
+            <span>Grabar Video</span>
+          </label>
+        </p>
+
+        <!-- SELECCIONAR ARCHIVO -->
+        <p>
+          <label class="md-filled-text-field float">
+            <input type="file" name="archivo" />
+            <span>Seleccionar Archivo</span>
+          </label>
+        </p>
+
+        <!-- BOTONES -->
+        <p>
+          <button id="botonMostrar" class="md-filled-button">
+            Mostrar Archivo
+          </button>
+          <button type="reset" class="md-outline-button">Limpiar</button>
+        </p>
       </section>
+    </form>
 
-      <section>
-        <h3>Grabar Video</h3>
-        <input
-          type="file"
-          accept="video/*"
-          capture
-          class="file-input"
-        />
-      </section>
+    <script type="module">
+      formulario.addEventListener("submit", procesa);
 
-      <section>
-        <h3>Seleccionar Archivo</h3>
-        <input type="file" class="file-input" />
-      </section>
+      function procesa(evt) {
+        evt.preventDefault();
 
-    </main>
+        const foto = formulario.foto.files[0];
+        const video = formulario.video.files[0];
+        const archivo = formulario.archivo.files[0];
 
-    <!-- BOTTOM NAV -->
-    <nav class="bottom-nav">
-      <a href="index.html" class="nav-item">
-        <span class="material-symbols-outlined">home</span>
-        <span>Inicio</span>
-      </a>
-
-      <a href="geolocalizacion.html" class="nav-item">
-        <span class="material-symbols-outlined">location_on</span>
-        <span>Geo</span>
-      </a>
-
-      <a href="camara.html" class="nav-item">
-        <span class="material-symbols-outlined">photo_camera</span>
-        <span>Cámara</span>
-      </a>
-
-      <a href="archivos.html" class="nav-item active">
-        <span class="material-symbols-outlined">folder</span>
-        <span>Archivos</span>
-      </a>
-
-      <a href="copyright.html" class="nav-item">
-        <span class="material-symbols-outlined">info</span>
-        <span>Info</span>
-      </a>
-    </nav>
-
-    <script>
-      // ===== TRANSICIÓN DE PÁGINA =====
-      window.addEventListener("DOMContentLoaded", () => {
-        const content = document.querySelector(".page-content");
-        content.classList.add("page-enter");
-      });
-
-      document.querySelectorAll(".bottom-nav a").forEach((link) => {
-        link.addEventListener("click", function (e) {
-          if (this.href !== window.location.href) {
-            e.preventDefault();
-
-            const destino = this.href;
-            const content = document.querySelector(".page-content");
-
-            content.classList.remove("page-enter");
-            content.classList.add("page-exit");
-
-            setTimeout(() => {
-              window.location.href = destino;
-            }, 280);
-          }
-        });
-      });
+        if (foto) {
+          formulario.respuesta.value = `Foto seleccionada: ${foto.name}`;
+        } else if (video) {
+          formulario.respuesta.value = `Video seleccionado: ${video.name}`;
+        } else if (archivo) {
+          formulario.respuesta.value = `Archivo seleccionado: ${archivo.name}`;
+        } else {
+          formulario.respuesta.value = "No se seleccionó ningún archivo";
+        }
+      }
     </script>
   </body>
 </html>

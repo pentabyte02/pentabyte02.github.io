@@ -13,9 +13,9 @@ export class NavTabFixed extends HTMLElement {
   if (!this.creado) {
 
    this.innerHTML = /* HTML */`
-    <a ${resaltaSiEstasEn(["/index.html", "", "/"])} href="index.html">
-     <span class="material-symbols-outlined">home</span>
-     Inicio
+    <a ${resaltaSiEstasEn(["/index.html"])} href="index.html">
+     <span class="material-symbols-outlined">help</span>
+     Ayuda
     </a>
 
     <a ${resaltaSiEstasEn(["/geolocalizacion.html"])} href="geolocalizacion.html">
@@ -33,10 +33,7 @@ export class NavTabFixed extends HTMLElement {
      Archivos
     </a>
 
-    <a ${resaltaSiEstasEn(["/ayuda.html"])} href="ayuda.html">
-     <span class="material-symbols-outlined">help</span>
-     Ayuda
-    </a>
+
    `
 
    this.creado = true

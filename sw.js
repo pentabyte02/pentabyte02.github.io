@@ -1,4 +1,4 @@
-const VERSION = "1.01";
+const VERSION = "1.02.1";
 
 const CACHE = "pwamd";
 
@@ -9,7 +9,6 @@ const ARCHIVOS = [
   "archivos.txt",
   "camara.html",
   "geolocalizacion.html",
-  "copyright.html",
 
   // Manifest y favicons
   "site.webmanifest",
@@ -17,14 +16,28 @@ const ARCHIVOS = [
   "favicon.png",
 
   // CSS
-  "css/styles.css",
-  "css/dark.css",
-  "css/dark-hc.css",
-  "css/dark-mc.css",
-  "css/light.css",
-  "css/light-hc.css",
-  "css/light-mc.css",
+  "css/baseline.css",
+  "css/colors.css",
+  "css/elevation.css",
+  "css/estilos.css",
+  "css/material-symbols-outlined.css",
+  "css/md-filled-button.css",
+  "css/md-filled-text-field.css",
+  "css/md-headline.css",
+  "css/md-list.css",
+  "css/md-outline-button.css",
+  "css/md-tab.css",
+  "css/motion.css",
+  "css/palette.css",
+  "css/roboto.css",
+  "css/shape.css",
+  "css/state.css",
   "css/transicion_pestanas.css",
+  "css/typography.css",
+
+  // Theme
+  "css/theme/dark.css",
+  "css/theme/light.css",
 
   // Fonts
   "fonts/MaterialSymbolsOutlined[FILL,GRAD,opsz,wght].codepoints",
@@ -52,7 +65,6 @@ const ARCHIVOS = [
   "img/screenshot_vertical_3.png",
   "img/screenshot_vertical_4.png",
   "img/screenshot_vertical_5.png",
-
 
   // JS
   "js/nav-tab-fixed.js",

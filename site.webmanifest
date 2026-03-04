@@ -50,30 +50,35 @@
    "src": "/img/screenshot_vertical_1.png",
    "sizes": "377x667",
    "type": "image/png",
+    "form_factor": "narrow",
    "label": "PWA con Material Design"
   },
     {
    "src": "/img/screenshot_vertical_2.png",
    "sizes": "377x667",
    "type": "image/png",
+    "form_factor": "narrow",
    "label": "PWA con Material Design"
   },
     {
    "src": "/img/screenshot_vertical_3.png",
    "sizes": "377x667",
    "type": "image/png",
+    "form_factor": "narrow",
    "label": "PWA con Material Design"
   },
     {
    "src": "/img/screenshot_vertical_4.png",
    "sizes": "377x667",
    "type": "image/png",
+    "form_factor": "narrow",
    "label": "PWA con Material Design"
   },
     {
    "src": "/img/screenshot_vertical_5.png",
    "sizes": "377x667",
    "type": "image/png",
+    "form_factor": "narrow",
    "label": "PWA con Material Design"
   }
 
@@ -81,7 +86,7 @@
  "icons": [
 {
   "purpose": "maskable",
-  "sizes": "2925x2925",
+  "sizes": "2560x2560",
   "src": "/img/maskable_icon.png",
   "type": "image/png"
 },
@@ -129,7 +134,7 @@
   },
 {
   "purpose": "any",
-  "sizes": "2925x2925",
+  "sizes": "2560x2560",
   "src": "/img/maskable_icon.png",
   "type": "image/png"
 },
